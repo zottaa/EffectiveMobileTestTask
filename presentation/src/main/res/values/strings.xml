@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">EffectiveMobileTestTask</string>
+    <string name="filter">filter</string>
+    <string name="search">search</string>
+    <string name="offer_icon">offer_icon</string>
+    <string name="icon_favorite">icon_favorite</string>
+    <string name="check">check</string>
+    <string name="experience">experience</string>
+    <string name="respond">Откликнуться</string>
+</resources>
