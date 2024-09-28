@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -32,8 +33,6 @@ fun BlueButton(
     enabled: Boolean = true,
     onClick: () -> Unit,
     paddingValues: PaddingValues = PaddingValues(
-        start = 146.dp,
-        end = 145.dp,
         top = 14.dp,
         bottom = 13.dp
     ),
@@ -96,7 +95,7 @@ fun FilterButton(
     onClick: () -> Unit
 ) {
     FilledIconButton(
-        modifier = modifier,
+        modifier = Modifier.size(40.dp),
         shape = RoundedCornerShape(10.dp),
         onClick = onClick,
         colors = IconButtonColors(
@@ -107,7 +106,7 @@ fun FilterButton(
         )
     ) {
         Icon(
-            modifier = Modifier.size(24.dp),
+            modifier = Modifier.padding(8.dp).size(24.dp),
             painter = painterResource(id = R.drawable.icon_filter),
             contentDescription = stringResource(
                 R.string.filter

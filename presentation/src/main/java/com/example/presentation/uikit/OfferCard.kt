@@ -38,7 +38,7 @@ fun OfferCard(
     Column(
         modifier = modifier
             .background(
-                color = Colors.grey2,
+                color = Colors.grey1,
                 shape = RoundedCornerShape(8.dp)
             )
             .size(width = 132.dp, height = 120.dp)

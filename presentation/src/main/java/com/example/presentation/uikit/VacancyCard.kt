@@ -1,5 +1,6 @@
 package com.example.presentation.uikit
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,6 +15,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,7 +25,6 @@ import com.example.presentation.models.SalaryUi
 import com.example.presentation.models.VacancyAddressUi
 import com.example.presentation.models.VacancyExperienceUi
 import com.example.presentation.models.VacancyUi
-import com.example.presentation.theme.ColorScheme
 import com.example.presentation.theme.Colors
 import com.example.presentation.theme.Typography
 
@@ -32,10 +33,11 @@ fun VacancyCard(
     vacancy: VacancyUi,
     modifier: Modifier = Modifier
 ) {
+    val context = LocalContext.current
     Box(
         modifier = modifier
             .background(
-                color = Colors.grey2,
+                color = Colors.grey1,
                 shape = RoundedCornerShape(8.dp)
             )
             .padding(16.dp),
@@ -57,18 +59,17 @@ fun VacancyCard(
             }
         )
         Column {
-            //TODO склонение
-            Text(
-                modifier = Modifier.padding(bottom = 10.dp),
-                text = "Сейчас проссматривает ${vacancy.lookingNumber} человек",
-                style = Typography.text1,
-                color = Colors.green
-            )
+            if (vacancy.lookingNumber > 0)
+                Text(
+                    text = getPeopleText(context, vacancy.lookingNumber),
+                    style = Typography.text1,
+                    color = Colors.green
+                )
             Text(
                 text = vacancy.title,
                 style = Typography.title3,
                 color = Colors.white,
-                modifier = Modifier.padding(bottom = 10.dp)
+                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
             )
             vacancy.salary.short?.let {
                 Text(
@@ -116,7 +117,7 @@ fun VacancyCard(
             }
             //TODO сделать корректное отображение
             Text(
-                text = vacancy.publishedDate,
+                text = formatPublishedDate(context, vacancy.publishedDate),
                 style = Typography.text1,
                 modifier = Modifier.padding(bottom = 21.dp),
                 color = Colors.grey3
@@ -126,6 +127,65 @@ fun VacancyCard(
             }
         }
     }
+}
+
+//TODO make class for formations in models(maybe format while mapping from domain to ui)
+fun getPeopleText(context: Context, count: Int): String {
+    val lastDigit = count % 10
+    val lastTwoDigits = count % 100
+
+    val word = when {
+        lastTwoDigits in 11..19 -> context.getString(R.string.people) // Для чисел 11–19
+        lastDigit == 1 -> context.getString(R.string.people) // Если последняя цифра 1
+        lastDigit in 2..4 -> context.getString(R.string.people_two) // Если последняя цифра от 2 до 4
+        else -> context.getString(R.string.people) // В остальных случаях
+    }
+
+    return context.getString(R.string.viewers_text, count, word)
+}
+
+//TODO make class for formations in models(maybe format while mapping from domain to ui)
+fun getVacanciesText(context: Context, count: Int): String {
+    val lastDigit = count % 10
+    val lastTwoDigits = count % 100
+
+    val word = when {
+        lastTwoDigits in 11..19 -> context.getString(R.string.vacancies_many) // Для чисел 11–19
+        lastDigit == 1 -> context.getString(R.string.vacancies_one) // Если последняя цифра 1
+        lastDigit in 2..4 -> context.getString(R.string.vacancies_two) // Если последняя цифра от 2 до 4
+        else -> context.getString(R.string.vacancies_many) // В остальных случаях
+    }
+
+    return "$count $word"
+}
+
+//TODO make class for formations in models(maybe format while mapping from domain to ui)
+fun formatPublishedDate(context: Context, publishedDate: String): String {
+    // Разбиваем строку даты на части
+    val dateParts = publishedDate.split("-")
+    val year = dateParts[0].toInt()
+    val month = dateParts[1].toInt()
+    val day = dateParts[2].toInt()
+
+    // Получаем название месяца с учетом склонения
+    val monthName = when (month) {
+        1 -> context.getString(R.string.month_january)
+        2 -> context.getString(R.string.month_february)
+        3 -> context.getString(R.string.month_march)
+        4 -> context.getString(R.string.month_april)
+        5 -> context.getString(R.string.month_may)
+        6 -> context.getString(R.string.month_june)
+        7 -> context.getString(R.string.month_july)
+        8 -> context.getString(R.string.month_august)
+        9 -> context.getString(R.string.month_september)
+        10 -> context.getString(R.string.month_october)
+        11 -> context.getString(R.string.month_november)
+        12 -> context.getString(R.string.month_december)
+        else -> ""
+    }
+
+    // Формируем итоговую строку
+    return context.getString(R.string.published_on, day, monthName)
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)

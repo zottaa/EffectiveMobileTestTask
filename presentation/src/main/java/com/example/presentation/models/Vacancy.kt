@@ -3,7 +3,7 @@ package com.example.presentation.models
 
 data class VacancyUi(
     val id: String,
-    val lookingNumber: Int,
+    val lookingNumber: Int = 0,
     val title: String,
     val address: VacancyAddressUi,
     val company: String,
