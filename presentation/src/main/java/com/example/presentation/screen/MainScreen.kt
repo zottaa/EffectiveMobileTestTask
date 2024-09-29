@@ -1,6 +1,8 @@
 package com.example.presentation.screen
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,6 +17,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -41,11 +44,18 @@ private const val VACANCIES_TO_SHOW = 3
 fun MainScreenContent(
     vacancies: List<VacancyUi>,
     offers: List<OfferUi>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    changeFavoriteCount: (Int) -> Unit,
+    navigateToVacancyDetails: () -> Unit,
 ) {
     val context = LocalContext.current
+    LaunchedEffect(vacancies) {
+        changeFavoriteCount(vacancies.count {
+            it.isFavorite
+        })
+    }
     LazyColumn(
-        modifier = modifier.padding(bottom = 8.dp),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         item {
@@ -71,7 +81,9 @@ fun MainScreenContent(
                 contentPadding = PaddingValues(horizontal = 16.dp)
             ) {
                 items(offers) { offer ->
-                    OfferCard(offerUi = offer)
+                    OfferCard(offerUi = offer) {
+                        followTheLink(context, offer.link)
+                    }
                 }
             }
 
@@ -85,7 +97,9 @@ fun MainScreenContent(
             )
         }
         items(vacancies.take(VACANCIES_TO_SHOW)) { vacancy ->
-            VacancyCard(vacancy = vacancy, modifier = Modifier.padding(horizontal = 16.dp))
+            VacancyCard(vacancy = vacancy, modifier = Modifier.padding(horizontal = 16.dp)) {
+                navigateToVacancyDetails()
+            }
         }
         item {
             BlueButton(
@@ -94,7 +108,12 @@ fun MainScreenContent(
                     .fillMaxWidth()
                     .padding(start = 16.dp, end = 16.dp, top = 8.dp)
             ) {
-                Text(text = "Еще ${getVacanciesText(context, vacancies.size - VACANCIES_TO_SHOW)}")
+                Text(
+                    text = stringResource(
+                        R.string.more_vacancies,
+                        getVacanciesText(context, vacancies.size - VACANCIES_TO_SHOW)
+                    )
+                )
             }
         }
     }
@@ -103,9 +122,16 @@ fun MainScreenContent(
 @Composable
 fun MainScreenMoreVacanciesContent(
     vacancies: List<VacancyUi>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    changeFavoriteCount: (Int) -> Unit,
+    navigateToVacancyDetails: () -> Unit,
 ) {
     val context = LocalContext.current
+    LaunchedEffect(vacancies) {
+        changeFavoriteCount(vacancies.count {
+            it.isFavorite
+        })
+    }
     Box(modifier = modifier.padding(bottom = 8.dp)) {
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -153,7 +179,9 @@ fun MainScreenMoreVacanciesContent(
                 }
             }
             items(vacancies) { vacancy ->
-                VacancyCard(vacancy = vacancy, modifier = Modifier.padding(horizontal = 16.dp))
+                VacancyCard(vacancy = vacancy, modifier = Modifier.padding(horizontal = 16.dp)) {
+                    navigateToVacancyDetails()
+                }
             }
         }
         MapButton(
@@ -163,5 +191,11 @@ fun MainScreenMoreVacanciesContent(
         ) {
 
         }
+    }
+}
+
+private fun followTheLink(context: Context, url: String) {
+    Intent(Intent.ACTION_VIEW, Uri.parse(url)).also {
+        context.startActivity(it)
     }
 }

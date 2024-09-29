@@ -31,4 +31,10 @@
     <string name="default_filter_parameter">По соответствию</string>
     <string name="vacancies_for_you">Вакансии для вас</string>
     <string name="viewers_text">Сейчас просматривает %1$d %2$s</string>
+    <string name="search_label">Поиск</string>
+    <string name="favorite">Избранное</string>
+    <string name="more_vacancies">Еще %1$s</string>
+    <string name="responses">Отклики</string>
+    <string name="messages">Сообщения</string>
+    <string name="profile">Профиль</string>
 </resources>

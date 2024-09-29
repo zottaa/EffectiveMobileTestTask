@@ -2,6 +2,7 @@ package com.example.presentation.uikit
 
 import android.content.Context
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -31,11 +32,15 @@ import com.example.presentation.theme.Typography
 @Composable
 fun VacancyCard(
     vacancy: VacancyUi,
-    modifier: Modifier = Modifier
-) {
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
+    ) {
     val context = LocalContext.current
     Box(
         modifier = modifier
+            .clickable {
+                onClick()
+            }
             .background(
                 color = Colors.grey1,
                 shape = RoundedCornerShape(8.dp)
@@ -115,7 +120,6 @@ fun VacancyCard(
                     color = Colors.white
                 )
             }
-            //TODO сделать корректное отображение
             Text(
                 text = formatPublishedDate(context, vacancy.publishedDate),
                 style = Typography.text1,
@@ -229,5 +233,7 @@ fun VacancyCardPreview() {
             "Какая оплата труда?"
         )
     )
-    VacancyCard(vacancy = vacancy)
+    VacancyCard(vacancy = vacancy) {
+
+    }
 }

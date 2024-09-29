@@ -2,6 +2,7 @@ package com.example.presentation.uikit
 
 import android.widget.Space
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,7 +34,8 @@ import com.example.presentation.theme.Typography
 @Composable
 fun OfferCard(
     offerUi: OfferUi,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClick: (url: String) -> Unit
 ) {
     Column(
         modifier = modifier
@@ -42,6 +44,9 @@ fun OfferCard(
                 shape = RoundedCornerShape(8.dp)
             )
             .size(width = 132.dp, height = 120.dp)
+            .clickable {
+                onClick(offerUi.link)
+            }
             .padding(top = 10.dp, start = 8.dp, end = 12.dp, bottom = 11.dp),
     ) {
         val iconType = offerUi.iconType
@@ -90,6 +95,8 @@ fun OfferCardPreview() {
             title = "Временная работа и подработка",
             link = ""
         )
-    )
+    ) {
+
+    }
 }
 
