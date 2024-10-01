@@ -95,7 +95,7 @@ fun FilterButton(
     onClick: () -> Unit
 ) {
     FilledIconButton(
-        modifier = Modifier.size(40.dp),
+        modifier = modifier.size(40.dp),
         shape = RoundedCornerShape(10.dp),
         onClick = onClick,
         colors = IconButtonColors(

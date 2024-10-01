@@ -22,3 +22,8 @@ dependencyResolutionManagement {
 rootProject.name = "EffectiveMobileTestTask"
 include(":app")
 include(":presentation")
+include(":domain")
+include(":data")
+include(":api")
+include(":database")
+include(":common")

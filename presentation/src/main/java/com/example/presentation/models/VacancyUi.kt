@@ -10,11 +10,11 @@ data class VacancyUi(
     val experience: VacancyExperienceUi,
     val publishedDate: String,
     val isFavorite: Boolean,
-    val salary: SalaryUi,
-    val appliedNumber: Int,
+    val salary: SalaryUi?,
+    val appliedNumber: Int?,
     val schedules: List<String>,
-    val description: String,
-    val responsibilities: String,
+    val description: String?,
+    val responsibilities: String?,
     val questions: List<String>
 )
 
@@ -30,6 +30,6 @@ data class VacancyExperienceUi(
 )
 
 data class SalaryUi(
-    val full: String,
+    val full: String?,
     val short: String?
 )

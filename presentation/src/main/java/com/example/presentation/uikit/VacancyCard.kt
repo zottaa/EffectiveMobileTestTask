@@ -28,6 +28,8 @@ import com.example.presentation.models.VacancyExperienceUi
 import com.example.presentation.models.VacancyUi
 import com.example.presentation.theme.Colors
 import com.example.presentation.theme.Typography
+import com.example.presentation.utils.formatPublishedDate
+import com.example.presentation.utils.getPeopleText
 
 @Composable
 fun VacancyCard(
@@ -76,7 +78,7 @@ fun VacancyCard(
                 color = Colors.white,
                 modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
             )
-            vacancy.salary.short?.let {
+            vacancy.salary?.short?.let {
                 Text(
                     text = vacancy.salary.short,
                     style = Typography.title2,
@@ -131,65 +133,6 @@ fun VacancyCard(
             }
         }
     }
-}
-
-//TODO make class for formations in models(maybe format while mapping from domain to ui)
-fun getPeopleText(context: Context, count: Int): String {
-    val lastDigit = count % 10
-    val lastTwoDigits = count % 100
-
-    val word = when {
-        lastTwoDigits in 11..19 -> context.getString(R.string.people) // Для чисел 11–19
-        lastDigit == 1 -> context.getString(R.string.people) // Если последняя цифра 1
-        lastDigit in 2..4 -> context.getString(R.string.people_two) // Если последняя цифра от 2 до 4
-        else -> context.getString(R.string.people) // В остальных случаях
-    }
-
-    return context.getString(R.string.viewers_text, count, word)
-}
-
-//TODO make class for formations in models(maybe format while mapping from domain to ui)
-fun getVacanciesText(context: Context, count: Int): String {
-    val lastDigit = count % 10
-    val lastTwoDigits = count % 100
-
-    val word = when {
-        lastTwoDigits in 11..19 -> context.getString(R.string.vacancies_many) // Для чисел 11–19
-        lastDigit == 1 -> context.getString(R.string.vacancies_one) // Если последняя цифра 1
-        lastDigit in 2..4 -> context.getString(R.string.vacancies_two) // Если последняя цифра от 2 до 4
-        else -> context.getString(R.string.vacancies_many) // В остальных случаях
-    }
-
-    return "$count $word"
-}
-
-//TODO make class for formations in models(maybe format while mapping from domain to ui)
-fun formatPublishedDate(context: Context, publishedDate: String): String {
-    // Разбиваем строку даты на части
-    val dateParts = publishedDate.split("-")
-    val year = dateParts[0].toInt()
-    val month = dateParts[1].toInt()
-    val day = dateParts[2].toInt()
-
-    // Получаем название месяца с учетом склонения
-    val monthName = when (month) {
-        1 -> context.getString(R.string.month_january)
-        2 -> context.getString(R.string.month_february)
-        3 -> context.getString(R.string.month_march)
-        4 -> context.getString(R.string.month_april)
-        5 -> context.getString(R.string.month_may)
-        6 -> context.getString(R.string.month_june)
-        7 -> context.getString(R.string.month_july)
-        8 -> context.getString(R.string.month_august)
-        9 -> context.getString(R.string.month_september)
-        10 -> context.getString(R.string.month_october)
-        11 -> context.getString(R.string.month_november)
-        12 -> context.getString(R.string.month_december)
-        else -> ""
-    }
-
-    // Формируем итоговую строку
-    return context.getString(R.string.published_on, day, monthName)
 }
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
