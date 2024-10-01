@@ -1,6 +1,5 @@
 package com.example.presentation.uikit
 
-import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +8,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -36,18 +34,12 @@ fun VacancyCard(
     vacancy: VacancyUi,
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    ) {
-    val context = LocalContext.current
+) {
     Box(
         modifier = modifier
-            .clickable {
-                onClick()
-            }
-            .background(
-                color = Colors.grey1,
-                shape = RoundedCornerShape(8.dp)
-            )
-            .padding(16.dp),
+            .clickable { onClick() }
+            .background(color = Colors.grey1, shape = RoundedCornerShape(8.dp))
+            .padding(16.dp)
     ) {
         Icon(
             modifier = Modifier.align(Alignment.TopEnd),
@@ -59,81 +51,94 @@ fun VacancyCard(
                 }
             ),
             contentDescription = stringResource(R.string.icon_favorite),
-            tint = if (vacancy.isFavorite) {
-                Colors.blue
-            } else {
-                Colors.grey4
-            }
+            tint = if (vacancy.isFavorite) Colors.blue else Colors.grey4
         )
-        Column {
-            if (vacancy.lookingNumber > 0)
-                Text(
-                    text = getPeopleText(context, vacancy.lookingNumber),
-                    style = Typography.text1,
-                    color = Colors.green
-                )
+        VacancyContent(vacancy)
+    }
+}
+
+@Composable
+private fun VacancyContent(vacancy: VacancyUi) {
+    val context = LocalContext.current
+
+    Column {
+        if (vacancy.lookingNumber > 0) {
             Text(
-                text = vacancy.title,
-                style = Typography.title3,
-                color = Colors.white,
-                modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
-            )
-            vacancy.salary?.short?.let {
-                Text(
-                    text = vacancy.salary.short,
-                    style = Typography.title2,
-                    color = Colors.white,
-                    modifier = Modifier.padding(bottom = 16.dp)
-                )
-            }
-            Text(
-                text = vacancy.address.town,
+                text = getPeopleText(context, vacancy.lookingNumber),
                 style = Typography.text1,
-                color = Colors.white,
-                modifier = Modifier.padding(bottom = 4.dp)
+                color = Colors.green
             )
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(bottom = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = vacancy.company, style = Typography.text1, color = Colors.white)
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_check),
-                    contentDescription = stringResource(
-                        R.string.check
-                    ),
-                    tint = Colors.grey3
-                )
-            }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(bottom = 10.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    painter = painterResource(id = R.drawable.icon_experience),
-                    contentDescription = stringResource(R.string.experience),
-                    tint = Colors.white
-                )
-                Text(
-                    text = vacancy.experience.previewText,
-                    style = Typography.text1,
-                    color = Colors.white
-                )
-            }
+        }
+        Text(
+            text = vacancy.title,
+            style = Typography.title3,
+            color = Colors.white,
+            modifier = Modifier.padding(top = 10.dp, bottom = 10.dp)
+        )
+        vacancy.salary?.short?.let {
             Text(
-                text = formatPublishedDate(context, vacancy.publishedDate),
-                style = Typography.text1,
-                modifier = Modifier.padding(bottom = 21.dp),
-                color = Colors.grey3
+                text = it,
+                style = Typography.title2,
+                color = Colors.white,
+                modifier = Modifier.padding(bottom = 16.dp)
             )
-            GreenButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
-                Text(text = stringResource(R.string.respond))
-            }
+        }
+        Text(
+            text = vacancy.address.town,
+            style = Typography.text1,
+            color = Colors.white,
+            modifier = Modifier.padding(bottom = 4.dp)
+        )
+        VacancyCompanyInfo(vacancy.company)
+        VacancyExperienceInfo(vacancy.experience.previewText)
+        Text(
+            text = formatPublishedDate(context, vacancy.publishedDate),
+            style = Typography.text1,
+            modifier = Modifier.padding(bottom = 21.dp),
+            color = Colors.grey3
+        )
+        GreenButton(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+            Text(text = stringResource(R.string.respond))
         }
     }
 }
+
+@Composable
+private fun VacancyCompanyInfo(companyName: String) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(bottom = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = companyName, style = Typography.text1, color = Colors.white)
+        Icon(
+            painter = painterResource(id = R.drawable.icon_check),
+            contentDescription = stringResource(R.string.check),
+            tint = Colors.grey3
+        )
+    }
+}
+
+@Composable
+private fun VacancyExperienceInfo(experienceText: String) {
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        modifier = Modifier.padding(bottom = 10.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.icon_experience),
+            contentDescription = stringResource(R.string.experience),
+            tint = Colors.white
+        )
+        Text(
+            text = experienceText,
+            style = Typography.text1,
+            color = Colors.white
+        )
+    }
+}
+
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
