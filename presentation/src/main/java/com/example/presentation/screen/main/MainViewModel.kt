@@ -3,6 +3,7 @@ package com.example.presentation.screen.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.models.OffersAndVacancies
+import com.example.domain.usecase.ChangeVacancyFavoriteStatusUseCase
 import com.example.domain.usecase.GetOffersAndVacanciesUseCase
 import com.example.domain.usecase.LoadOffersAndVacanciesUseCase
 import com.example.presentation.mappers.OffersAndVacanciesDomainToUiMapper
@@ -17,7 +18,8 @@ import kotlinx.coroutines.launch
 internal class MainViewModel(
     private val offersAndVacanciesDomainToUiMapper: OffersAndVacanciesDomainToUiMapper,
     private val getOffersAndVacanciesUseCase: GetOffersAndVacanciesUseCase,
-    private val loadOffersAndVacanciesUseCase: LoadOffersAndVacanciesUseCase
+    private val loadOffersAndVacanciesUseCase: LoadOffersAndVacanciesUseCase,
+    private val changeVacancyFavoriteStatusUseCase: ChangeVacancyFavoriteStatusUseCase
 ) : ViewModel() {
     private val searchValue: MutableStateFlow<String> = MutableStateFlow("")
 
@@ -71,6 +73,13 @@ internal class MainViewModel(
                     searchValue = searchValue.value
                 )
             }
+        }
+    }
+
+    fun changeVacancyFavoriteStatus(vacancyId: String) {
+        viewModelScope.launch {
+            changeVacancyFavoriteStatusUseCase(vacancyId)
+            loadOffersAndVacanciesUseCase()
         }
     }
 

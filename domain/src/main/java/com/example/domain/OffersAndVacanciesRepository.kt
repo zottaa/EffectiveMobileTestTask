@@ -6,4 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface OffersAndVacanciesRepository {
     fun getOffersAndVacancies(): Flow<OffersAndVacancies>
+
+    suspend fun changeFavoriteStatus(vacancyId: String)
 }

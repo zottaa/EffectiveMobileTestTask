@@ -30,9 +30,10 @@ import com.example.presentation.utils.formatPublishedDate
 import com.example.presentation.utils.getPeopleText
 
 @Composable
-fun VacancyCard(
+internal fun VacancyCard(
     vacancy: VacancyUi,
     modifier: Modifier = Modifier,
+    onFavoriteIconClick: () -> Unit,
     onClick: () -> Unit,
 ) {
     Box(
@@ -42,7 +43,9 @@ fun VacancyCard(
             .padding(16.dp)
     ) {
         Icon(
-            modifier = Modifier.align(Alignment.TopEnd),
+            modifier = Modifier.align(Alignment.TopEnd).clickable {
+                onFavoriteIconClick()
+            },
             painter = painterResource(
                 id = if (vacancy.isFavorite) {
                     R.drawable.icon_full_heart
@@ -142,7 +145,7 @@ private fun VacancyExperienceInfo(experienceText: String) {
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun VacancyCardPreview() {
+private fun VacancyCardPreview() {
     val vacancy = VacancyUi(
         id = "cbf0c984-7c6c-4ada-82da-e29dc698bb50",
         lookingNumber = 2,
@@ -181,7 +184,7 @@ fun VacancyCardPreview() {
             "Какая оплата труда?"
         )
     )
-    VacancyCard(vacancy = vacancy) {
+    VacancyCard(vacancy = vacancy, onFavoriteIconClick = {}) {
 
     }
 }

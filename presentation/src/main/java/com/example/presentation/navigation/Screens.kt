@@ -2,7 +2,7 @@ package com.example.presentation.navigation
 
 import kotlinx.serialization.Serializable
 
-sealed interface Screens {
+internal sealed interface Screens {
     @Serializable
     object Main
 

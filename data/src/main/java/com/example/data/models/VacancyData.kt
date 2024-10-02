@@ -1,6 +1,6 @@
 package com.example.data.models
 
-data class VacancyData(
+internal data class VacancyData(
     val id: String,
     val lookingNumber: Int = 0,
     val title: String,
@@ -17,18 +17,18 @@ data class VacancyData(
     val questions: List<String>
 )
 
-data class VacancyAddressData(
+internal data class VacancyAddressData(
     val town: String,
     val street: String,
     val house: String
 )
 
-data class VacancyExperienceData(
+internal data class VacancyExperienceData(
     val previewText: String,
     val text: String
 )
 
-data class SalaryData(
+internal data class SalaryData(
     val full: String,
     val short: String?
 )

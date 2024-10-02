@@ -44,5 +44,6 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":api"))
     implementation(project(":common"))
+    implementation(project(":database"))
 
 }

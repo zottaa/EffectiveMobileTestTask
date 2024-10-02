@@ -7,7 +7,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 
 @Composable
-fun StubScreen() {
+internal fun StubScreen() {
     Box {
         Text(text = "STUB", modifier = Modifier.align(Alignment.Center))
     }

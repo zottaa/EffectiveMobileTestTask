@@ -1,7 +1,8 @@
 [versions]
 agp = "8.5.2"
 converterGson = "2.11.0"
-kotlin = "1.9.0"
+gson = "2.10.1"
+kotlin = "1.9.23"
 coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -13,13 +14,19 @@ activityCompose = "1.9.1"
 composeBom = "2024.09.02"
 serialization = "1.6.3"
 appcompat = "1.7.0"
+roomRuntime = "2.6.1"
+ksp = "1.9.23-1.0.20"
 material = "1.12.0"
 koin-bom = "3.5.6"
 jetbrainsKotlinJvm = "1.9.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
@@ -46,6 +53,7 @@ koin-compose = {module = "io.insert-koin:koin-androidx-compose"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
+googleDevtoolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }

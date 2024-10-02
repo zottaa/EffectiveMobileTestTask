@@ -1,8 +1,10 @@
 package com.example.domain.di
 
+import com.example.domain.usecase.ChangeVacancyFavoriteStatusUseCase
 import com.example.domain.usecase.GetFavoriteVacanciesUseCase
 import com.example.domain.usecase.GetOffersAndVacanciesUseCase
 import com.example.domain.usecase.LoadOffersAndVacanciesUseCase
+import com.example.domain.usecase.impl.ChangeVacancyFavoriteStatusUseCaseImpl
 import com.example.domain.usecase.impl.GetFavoriteVacanciesUseCaseImpl
 import com.example.domain.usecase.impl.GetOffersAndVacanciesUseCaseImpl
 import com.example.domain.usecase.impl.LoadOffersAndVacanciesUseCaseImpl
@@ -19,5 +21,8 @@ internal val useCasesModule = module {
     }
     factoryOf(::LoadOffersAndVacanciesUseCaseImpl) {
         bind<LoadOffersAndVacanciesUseCase>()
+    }
+    factoryOf(::ChangeVacancyFavoriteStatusUseCaseImpl) {
+        bind<ChangeVacancyFavoriteStatusUseCase>()
     }
 }

@@ -34,7 +34,7 @@ import com.example.presentation.theme.Colors
 import com.example.presentation.theme.Typography
 
 @Composable
-fun SearchField(
+internal fun SearchField(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -112,7 +112,7 @@ fun SearchField(
 }
 
 @Composable
-fun SearchFieldWithBackButton(
+internal fun SearchFieldWithBackButton(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -194,7 +194,7 @@ fun SearchFieldWithBackButton(
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun SearchFieldPreview() {
+private fun SearchFieldPreview() {
     Column {
         SearchField(
             modifier = Modifier.fillMaxWidth(),

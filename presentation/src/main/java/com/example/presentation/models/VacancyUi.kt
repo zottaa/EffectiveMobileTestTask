@@ -1,7 +1,7 @@
 package com.example.presentation.models
 
 
-data class VacancyUi(
+internal data class VacancyUi(
     val id: String,
     val lookingNumber: Int = 0,
     val title: String,
@@ -18,18 +18,18 @@ data class VacancyUi(
     val questions: List<String>
 )
 
-data class VacancyAddressUi(
+internal data class VacancyAddressUi(
     val town: String,
     val street: String,
     val house: String
 )
 
-data class VacancyExperienceUi(
+internal data class VacancyExperienceUi(
     val previewText: String,
     val text: String
 )
 
-data class SalaryUi(
+internal data class SalaryUi(
     val full: String?,
     val short: String?
 )

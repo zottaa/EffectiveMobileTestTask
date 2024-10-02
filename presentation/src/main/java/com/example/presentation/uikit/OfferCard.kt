@@ -25,7 +25,7 @@ import com.example.presentation.theme.Colors
 import com.example.presentation.theme.Typography
 
 @Composable
-fun OfferCard(
+internal fun OfferCard(
     offerUi: OfferUi,
     modifier: Modifier = Modifier,
     onClick: (url: String) -> Unit
@@ -84,7 +84,7 @@ private fun OfferButton(buttonText: String) {
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun OfferCardPreview() {
+private fun OfferCardPreview() {
     OfferCard(
         offerUi = OfferUi(
             id = "temporary_job",

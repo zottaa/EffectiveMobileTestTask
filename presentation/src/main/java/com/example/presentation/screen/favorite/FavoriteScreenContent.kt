@@ -20,10 +20,11 @@ import com.example.presentation.uikit.VacancyCard
 import com.example.presentation.utils.getVacanciesText
 
 @Composable
-fun FavoriteScreenContent(
+internal fun FavoriteScreenContent(
     favoriteVacancies: List<VacancyUi>,
     modifier: Modifier = Modifier,
     changeFavoriteCount: (Int) -> Unit,
+    changeVacancyFavoriteStatus: (vacancyId: String) -> Unit,
     navigateToVacancyDetails: () -> Unit
 ) {
     val context = LocalContext.current
@@ -41,7 +42,10 @@ fun FavoriteScreenContent(
             VacanciesCountText(context, favoriteVacancies.size)
         }
         items(favoriteVacancies) { vacancy ->
-            VacancyCard(vacancy = vacancy) {
+            VacancyCard(
+                vacancy = vacancy,
+                onFavoriteIconClick = { changeVacancyFavoriteStatus(vacancy.id) }
+            ) {
                 navigateToVacancyDetails()
             }
         }

@@ -24,7 +24,8 @@ internal fun MainScreen(
             changeFavoriteCount = changeFavoriteCount,
             navigateToVacancyDetails = navigateToVacancyDetails,
             onSearchValueChange = viewModel::changeSearchValue,
-            onMoreVacancy = viewModel::toMoreVacanciesState
+            onMoreVacancy = viewModel::toMoreVacanciesState,
+            changeVacancyFavoriteStatus = viewModel::changeVacancyFavoriteStatus
         )
 
         is MainScreenState.More -> MainScreenMoreVacanciesContent(
@@ -33,7 +34,8 @@ internal fun MainScreen(
             changeFavoriteCount = changeFavoriteCount,
             navigateToVacancyDetails = navigateToVacancyDetails,
             onSearchValueChange = viewModel::changeSearchValue,
-            onMain = viewModel::toMainState
+            onMain = viewModel::toMainState,
+            changeVacancyFavoriteStatus = viewModel::changeVacancyFavoriteStatus
         )
     }
 }

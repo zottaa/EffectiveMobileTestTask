@@ -6,6 +6,7 @@ import com.example.data.models.OfferButtonData
 import com.example.data.models.OfferData
 
 internal interface OfferDTOToDataMapper : Mapper<OfferDTO, OfferData>
+
 internal class OfferDTOToDataMapperImpl : OfferDTOToDataMapper {
     override fun map(from: OfferDTO): OfferData {
         return OfferData(

@@ -19,7 +19,8 @@ internal fun FavoriteScreen(
         is FavoriteScreenState.Show -> FavoriteScreenContent(
             favoriteVacancies = state.vacancies,
             changeFavoriteCount = changeFavoriteCount,
-            navigateToVacancyDetails = navigateToVacancyDetails
+            navigateToVacancyDetails = navigateToVacancyDetails,
+            changeVacancyFavoriteStatus = viewModel::changeFavoriteStatus
         )
     }
 }

@@ -28,7 +28,7 @@ import com.example.presentation.theme.Colors
 import com.example.presentation.theme.Typography
 
 @Composable
-fun BlueButton(
+internal fun BlueButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     onClick: () -> Unit,
@@ -59,7 +59,7 @@ fun BlueButton(
 }
 
 @Composable
-fun GreenButton(
+internal fun GreenButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     onClick: () -> Unit,
@@ -90,7 +90,7 @@ fun GreenButton(
 }
 
 @Composable
-fun FilterButton(
+internal fun FilterButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -116,7 +116,7 @@ fun FilterButton(
 }
 
 @Composable
-fun MapButton(
+internal fun MapButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit
 ) {
@@ -149,7 +149,7 @@ fun MapButton(
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun ButtonsPreview() {
+private fun ButtonsPreview() {
     Column(
         verticalArrangement = Arrangement.spacedBy(10.dp),
         horizontalAlignment = Alignment.CenterHorizontally

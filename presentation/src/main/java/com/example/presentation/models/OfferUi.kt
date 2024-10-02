@@ -2,7 +2,7 @@ package com.example.presentation.models
 
 import com.example.presentation.uikit.IconType
 
-data class OfferUi(
+internal data class OfferUi(
     val id: String? = null,
     val iconType: IconType? = null,
     val title: String,
@@ -10,6 +10,6 @@ data class OfferUi(
     val link: String
 )
 
-data class OfferButtonUi(
+internal data class OfferButtonUi(
     val text: String
 )

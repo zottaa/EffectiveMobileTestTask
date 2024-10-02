@@ -38,6 +38,7 @@ internal fun MainScreenMoreVacanciesContent(
     changeFavoriteCount: (Int) -> Unit,
     navigateToVacancyDetails: () -> Unit,
     onSearchValueChange: (String) -> Unit,
+    changeVacancyFavoriteStatus: (vacancyId: String) -> Unit,
     onMain: () -> Unit
 ) {
     val context = LocalContext.current
@@ -63,7 +64,8 @@ internal fun MainScreenMoreVacanciesContent(
             items(vacancies) { vacancy ->
                 VacancyCard(
                     vacancy = vacancy,
-                    modifier = Modifier.padding(horizontal = 16.dp)
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    onFavoriteIconClick = { changeVacancyFavoriteStatus(vacancy.id) }
                 ) {
                     navigateToVacancyDetails()
                 }

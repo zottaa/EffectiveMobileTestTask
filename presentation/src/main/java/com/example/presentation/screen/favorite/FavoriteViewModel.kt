@@ -2,6 +2,7 @@ package com.example.presentation.screen.favorite
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.usecase.ChangeVacancyFavoriteStatusUseCase
 import com.example.domain.usecase.GetFavoriteVacanciesUseCase
 import com.example.domain.usecase.LoadOffersAndVacanciesUseCase
 import com.example.presentation.mappers.VacancyDomainToUiMapper
@@ -20,6 +21,7 @@ internal class FavoriteViewModel(
     private val vacancyDomainToUiMapper: VacancyDomainToUiMapper,
     private val getFavoriteVacanciesUseCase: GetFavoriteVacanciesUseCase,
     private val loadOffersAndVacanciesUseCase: LoadOffersAndVacanciesUseCase,
+    private val changeVacancyFavoriteStatusUseCase: ChangeVacancyFavoriteStatusUseCase
 ) : ViewModel() {
     private val currentVacancies: MutableStateFlow<List<VacancyUi>> = MutableStateFlow(
         emptyList()
@@ -38,6 +40,13 @@ internal class FavoriteViewModel(
     }
 
     fun getFavoriteScreenState(): StateFlow<FavoriteScreenState> = state
+
+    fun changeFavoriteStatus(vacancyId: String) {
+        viewModelScope.launch {
+            changeVacancyFavoriteStatusUseCase(vacancyId)
+            loadOffersAndVacanciesUseCase()
+        }
+    }
 
     private fun observeOffersAndVacancies() {
         getFavoriteVacanciesUseCase()
